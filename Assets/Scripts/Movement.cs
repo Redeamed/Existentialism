@@ -5,6 +5,7 @@ public class Movement : MonoBehaviour
 {
 
     [SerializeField] private float speed;
+    [SerializeField] private float originalSpeed;
     [SerializeField] private float jumpHeight;
     [SerializeField] private float maxVelocityChange;
     [SerializeField] private bool grounded;
@@ -17,6 +18,7 @@ public class Movement : MonoBehaviour
     void Awake()
     {
         distanceToGround = GetComponent<Collider>().bounds.extents.y;
+        originalSpeed = speed;
     }
 
     void Start()
@@ -59,4 +61,23 @@ public class Movement : MonoBehaviour
         return Physics.Raycast(transform.position, -Vector3.up, distanceToGround + .1f);
     }
     
+    public void cripple()
+    {
+        speed /= 2;
+    }
+
+    public void stop()
+    {
+        speed = 0;
+    }
+
+    public void sprint()
+    {
+        speed *= 1.5f;
+    }
+
+    public void resetSpeed()
+    {
+        speed = originalSpeed;
+    }
 }
